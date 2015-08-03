@@ -1,10 +1,3 @@
-
-# coding: utf-8
-
-# #Full script for data analysis from sensor box
-
-# In[157]:
-
 #LOADING PACKAGES
 import numpy as np
 import pandas as pd
@@ -19,7 +12,6 @@ from datetime import datetime
 
 #Plotting
 import matplotlib.pyplot as plt
-get_ipython().magic(u'matplotlib inline')
 from matplotlib import dates as mdates
 from matplotlib.ticker import LinearLocator
 
@@ -204,7 +196,7 @@ def plot_data(df,hfmt,cols,title="Plot",plt_type="line",**kwargs):
     
     fig.autofmt_xdate()
     fig.tight_layout()
-    #fig.show()
+    fig.show()
     #fig.savefig(title,orientation="landscape")
 
 def line_plot(df,df_act,hfmt,cols):
@@ -242,6 +234,7 @@ def line_plot(df,df_act,hfmt,cols):
     #axs[0].set_xlim("2015-07-30 20:00","2015-07-30 23:59")
     
     fig.autofmt_xdate()
+    fig.show()
     
 def random_data(n,duration,name):
     from datetime import timedelta
