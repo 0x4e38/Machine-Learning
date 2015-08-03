@@ -2,9 +2,6 @@
 import numpy as np
 import pandas as pd
 
-#GUI
-#import Tkinter as tk
-
 #load data from server and handle json and timestamps
 import urllib2
 import simplejson as json
@@ -15,57 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib import dates as mdates
 from matplotlib.ticker import LinearLocator
 
-
-###-----FUNCTIONS-----### 
-# class server_GUI(tk.Frame):
-#     def __init__(self, parent, date_format, *args, **kwargs):
-#         tk.Frame.__init__(self, parent, *args, **kwargs)
-#         self.grid()
-#         self.parent = parent
-#         self.date_format = date_format
-#
-#         self.link = ""
-#         self.devices = ['53ff6d066667574831402467','54ff69066667515129441567']
-#         self.device = tk.StringVar(self.parent)
-#
-#         self.initial_value = ['Hour','Day','07','2015']
-#         self.all_options = [['%02d'%(i) for i in range(0,24)],['%02d'%(i) for i in range(1,32)],['%02d'%(i) for i in range(1,13)],range(2015,2016)]
-#
-#     def select_date(self):
-#         #DEVICE
-#         self.device.set('53ff6d066667574831402467')
-#         tk.Label(self.parent, text="Select device:").grid(row=0,column=0)
-#         apply(tk.OptionMenu, (self.parent, self.device) + tuple(self.devices)).grid(row=0,column=1)
-#
-#         #START DATE
-#         tk.Label(self.parent, text="Select start date:").grid(row=1)
-#         self.var_start = [tk.StringVar(self.parent) for i in range(len(self.initial_value))]
-#         for i in range(len(self.initial_value)):
-#             self.var_start[i].set(self.initial_value[i])
-#             apply(tk.OptionMenu, (self.parent, self.var_start[i]) + tuple(self.all_options[i])).grid(row=2,column=i)
-#
-#         #END DATE
-#         tk.Label(self.parent, text="Select end date:").grid(row=3)
-#         self.var_end = [tk.StringVar(self.parent) for i in range(len(self.initial_value))]
-#         for i in range(len(self.initial_value)):
-#             self.var_end[i].set(self.initial_value[i])
-#             apply(tk.OptionMenu, (self.parent, self.var_end[i]) + tuple(self.all_options[i])).grid(row=4,column=i)
-#
-#         tk.Button(self.parent, text='OK', command=self.ok).grid(row=5,column=5)
-#
-#     def ok(self):
-#         try:
-#             start = datetime(int(self.var_start[3].get()),int(self.var_start[2].get()),int(self.var_start[1].get()),int(self.var_start[0].get()))
-#             end =  datetime(int(self.var_end[3].get()),int(self.var_end[2].get()),int(self.var_end[1].get()),int(self.var_end[0].get()))
-#             print "The start date is {}, the end date {}, the device number is {}.".format(start.strftime(self.date_format),end.strftime(self.date_format),self.device.get())
-#
-#             self.link = "http://109.237.25.161/particle/events?start_date={}&end_date={}&device={}".format(start.strftime(self.date_format),end.strftime(self.date_format),self.device.get())
-#             print "Created link: {}\n".format(self.link)
-#
-#             self.parent.quit()
-#
-#         except:
-#             print "Please try again!"
+###-----FUNCTIONS-----###
 
 def load_data(device,parameters,api_link):
     dat = [[] for par in range(len(parameters))]
@@ -351,16 +298,6 @@ def main():
     
     ###-----ANALYSIS-----### 
     
-    #CALL GUI TO SELECT DATE
-    #root = tk.Tk()
-    #root.title('Select data to be fetched')
-
-    #App = server_GUI(root,date_format)
-    #App.select_date()
-
-    #root.mainloop()
-    #root.destroy()
-    
     #LOAD DATA
     df = load_data(device["sb-stable"],box_param,api_link)
     power = load_data(device["power1"],power_param,api_link)
@@ -408,6 +345,9 @@ def main():
     line_plot(df_all,df_activity,hfmt,cols)
     
     print df_all.tail()
+    
+    print "Hit Enter to exit..."
+    raw_input()
     
 # call main
 if __name__ == '__main__':
